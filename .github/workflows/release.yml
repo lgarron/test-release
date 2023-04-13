@@ -22,7 +22,7 @@ jobs:
         run: |
           # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-of-a-multiline-string
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "JSON_RESPONSE<<$EOF" >> $GITHUB_ENV
+          echo "RELEASE_BODY<<$EOF" >> $GITHUB_ENV
           git log -1 --pretty=%B >> $GITHUB_ENV
           echo "$EOF" >> $GITHUB_ENV
       - name: Publish release
@@ -32,6 +32,6 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ env.RELEASE_NAME }}
-          body: "This is a hardcoded release body."
+          body: ${{ env.RELEASE_BODY }}
           draft: false
           prerelease: false
