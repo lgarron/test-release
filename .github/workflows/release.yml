@@ -21,7 +21,7 @@ jobs:
       - name: Check out code for release body calculation using `git` itself
         uses: actions/checkout@v3
         with:
-          fetch-depth: 1
+          fetch-depth: 2
       - name: Calculate release body
         run: |
           # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-of-a-multiline-string
