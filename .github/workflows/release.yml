@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
+      - uses: actions/checkout@v3
       - name: Calculate release name
         run: |
           GITHUB_REF=${{ github.ref }}
