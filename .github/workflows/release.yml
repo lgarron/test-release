@@ -20,6 +20,13 @@ jobs:
           echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_ENV
           RELEASE_BODY=$(git log -1 --pretty=%B)
           echo "RELEASE_BODY=${RELEASE_BODY}" >> $GITHUB_ENV
+      - name: Calculate release body
+        run: |
+          # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-of-a-multiline-string
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "JSON_RESPONSE<<$EOF" >> $GITHUB_ENV
+          git log -1 --pretty=%B >> $GITHUB_ENV
+          echo "$EOF" >> $GITHUB_ENV
       - name: Publish release
         uses: actions/create-release@v1
         env:
